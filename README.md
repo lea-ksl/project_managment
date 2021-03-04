@@ -8,3 +8,4 @@ A project management platform built with MERN-Stack.
 ###### Modele de données
 ![](./storage/public/images/donnees.jpg)
 ## UX/UI
+Il arrive dans le week-end :)
