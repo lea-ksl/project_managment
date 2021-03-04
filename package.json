@@ -1,0 +1,15 @@
+{
+    "name": "back",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "dev": "concurrently  \"npm start --prefix front\" \"npm run dev --prefix back\""
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "concurrently": "^6.0.0",
+      "nodemon": "^2.0.7"
+    }
+  }  
