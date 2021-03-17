@@ -1,5 +1,5 @@
 import socketIOClient from "socket.io-client";
-import { update } from './features/posts/postsSlice';
+import { update } from './features/projects/projectsSlice';
 
 
 

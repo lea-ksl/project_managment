@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const postsSlice = createSlice({
-  name: 'posts',
+export const projectsSlice = createSlice({
+  name: 'projects',
   initialState: {
     value: [],
   },
@@ -12,13 +12,13 @@ export const postsSlice = createSlice({
   },
 });
 
-export const { update } = postsSlice.actions;
+export const { update } = projectsSlice.actions;
 
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
-export const selectPosts = state => state.posts.value;
+export const selectProjects = state => state.projects.value;
 
 
-export default postsSlice.reducer;
+export default projectsSlice.reducer;

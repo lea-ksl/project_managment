@@ -3,7 +3,7 @@ import { Grommet, Box, Button,  } from "grommet";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Login from "./features/session/Login";
-import Posts from "./features/posts/Posts";
+import Projects from "./features/projects/Projects";
 import store from "./app/store";
 
 
@@ -53,7 +53,8 @@ function App() {
           ) 
           : (
             <Box fill align="center" justify="center" background="back">
-              <Posts />
+              
+              <Projects />
               <Button label="sign out" onClick={()=> fire.auth().signOut()} />
             </Box>
           )}

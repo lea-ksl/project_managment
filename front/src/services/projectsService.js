@@ -2,7 +2,7 @@ import axios from "axios";
 
 import fire from '../fire';
 
-const url = 'http://localhost:3001/posts'
+const url = 'http://localhost:3001/projects'
 
 const createToken = async () => {
 
@@ -19,11 +19,11 @@ const createToken = async () => {
     return payloadHeader;
 }
 
-export const addPost = async (content) => {
+export const addProject = async ({title, desc}) => {
     const header = await createToken();
-    console.log(content)
+    console.log('addproject', title, desc)
     const payload ={
-        content
+        title, desc
     }
     try {
         const res = await axios.post(url, payload, header);
@@ -34,7 +34,7 @@ export const addPost = async (content) => {
     
 }
 
-export const getPosts = async () => {
+export const getProjects = async () => {
     const header = await createToken();
 
     try {

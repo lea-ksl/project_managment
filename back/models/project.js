@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 
-const postSchema = new mongoose.Schema({
-    content: String
+const projectSchema = new mongoose.Schema({
+    title: String,
+    desc: String
+    //chiefId: String
 })
 
-postSchema.set('toJSON', {
+projectSchema.set('toJSON', {
     transform : (doc, returnedObject) => {
         returnedObject.id = returnedObject._id.toString();
         delete returnedObject._id;
@@ -12,4 +14,4 @@ postSchema.set('toJSON', {
     }
 })
 
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model('Project', projectSchema);

@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const decodeIDToken = require('./authenticateToken');
-const postsRouter = require('./controllers/posts');
+const projectsRouter = require('./controllers/projects');
 
 
 const app = express();
@@ -34,7 +34,7 @@ mongoose.connect(
 }).catch((err) => console.log('Error connecting database', err.message));
 
 
-app.use('/posts', postsRouter)
+app.use('/projects', projectsRouter);
 
 app.get('/', (req, res) => {
     res.send('Hello ynov toulouse');
