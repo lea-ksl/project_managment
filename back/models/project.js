@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const projectSchema = new mongoose.Schema({
     title: String,
-    desc: String
-    //chiefId: String
+    desc: String,
+    chiefId: String
 })
 
 projectSchema.set('toJSON', {
