@@ -11,7 +11,8 @@ app.use(cors());
 app.use(decodeIDToken);
 app.use(express.json());
 var server = require("http").Server(app);
-const socketio = require("socket.io")
+const socketio = require("socket.io");
+const polesRouter = require('./controllers/poles');
 
 // socket.io
 io = socketio(server , {
@@ -35,6 +36,7 @@ mongoose.connect(
 
 
 app.use('/projects', projectsRouter);
+app.use('/poles', polesRouter);
 
 app.get('/', (req, res) => {
     res.send('Hello ynov toulouse');

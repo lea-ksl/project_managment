@@ -1,9 +1,11 @@
 import React from "react";
 import { Grommet, Box, Button,  } from "grommet";
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Login from "./features/session/Login";
 import Projects from "./features/projects/Projects";
+import Poles from "./features/poles/Poles"
+//import Users from "./features/users/Users";
 import store from "./app/store";
 
 
@@ -52,11 +54,14 @@ function App() {
               </Route>
           ) 
           : (
-            <Box fill align="center" justify="center" background="back">
-              
-              <Projects />
-              <Button label="sign out" onClick={()=> fire.auth().signOut()} />
-            </Box>
+            <Switch>
+            <Route path="/" exact>
+                <Projects />
+              </Route>
+             <Route path="/poles" exact>
+             <Poles />
+           </Route> 
+           </Switch>
           )}
       </Router>
  

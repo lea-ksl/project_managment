@@ -7,14 +7,14 @@ import { Refresh } from "grommet-icons";
 import Card from "../../components/Card";
 import CardConcave from "../../components/CardConcave";
 
-import { addProject, getProjects } from "../../services/projectsService";
+import { addPole, getPoles } from "../../services/polesService";
 
 import { useSelector, useDispatch } from 'react-redux';
-import { update, selectProjects } from './projectsSlice';
+import { update, selectPoles } from './polesSlice';
 
-const Projects = () => {
+const Poles = () => {
 
-  const projects = useSelector(selectProjects);
+  const poles = useSelector(selectPoles);
   const dispatch = useDispatch();
 
   const [formData, setFormData] = React.useState({    
@@ -26,11 +26,10 @@ const Projects = () => {
   const [refresh, setrefresh] = React.useState(true);
     
   const user = fire.auth().currentUser;
-  const chiefId = user.email;
     
   const onSubmit = (e) => {
     e.preventDefault();
-    addProject(title, desc, chiefId).then(()=>setrefresh(true) )
+    addPole(title, desc).then(()=>setrefresh(true) )
   };
 
   const onChange = (e) => {
@@ -40,19 +39,18 @@ const Projects = () => {
   
 
   React.useEffect(() => {
-    const fecthProjects = async () => {
-        const fetchData = await getProjects();
+    const fecthPoles = async () => {
+        const fetchData = await getPoles();
         dispatch(update(fetchData));
     }
     if (refresh) {
-        fecthProjects();
+        fecthPoles();
         setrefresh(false);
     }
   }, [refresh])
 
   return(
     <Box align="center">
-      <a href="/poles">Poles</a>
       <Form 
       className="" 
       onSubmit={(e) => onSubmit(e)}
@@ -87,25 +85,24 @@ const Projects = () => {
       margin="medium"
       width="medium"
       height="medium">
-        {projects ? 
-          projects.map(project => (
+        {poles ? 
+          poles.map(pole => (
             <CardConcave align="center"
             justify="center"
             round="medium"
             padding="medium"
             margin="small"
             width="small">
-              <Text>{project.title}</Text>
-              <Text>{project.desc}</Text>
-              <Text>{project.chiefId}</Text>
+              <Text>{pole.title}</Text>
+              <Text>{pole.desc}</Text>
             </CardConcave>
           ))
         : 
-          <Text>Ceci sont les posts</Text>
+          <Text>Ceci sont les poles</Text>
         }
       </Card>
     </Box>
   )
 }
 
-export default Projects;
+export default Poles;
