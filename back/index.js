@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const decodeIDToken = require('./authenticateToken');
 const projectsRouter = require('./controllers/projects');
-
+const polesRouter = require('./controllers/poles');
+const tasksRouter = require('./controllers/tasks');
 
 const app = express();
 
@@ -12,7 +13,7 @@ app.use(decodeIDToken);
 app.use(express.json());
 var server = require("http").Server(app);
 const socketio = require("socket.io");
-const polesRouter = require('./controllers/poles');
+
 
 // socket.io
 io = socketio(server , {
@@ -37,6 +38,7 @@ mongoose.connect(
 
 app.use('/projects', projectsRouter);
 app.use('/poles', polesRouter);
+app.use('/tasks', tasksRouter);
 
 app.get('/', (req, res) => {
     res.send('Hello ynov toulouse');

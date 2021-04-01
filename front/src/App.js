@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from "./features/session/Login";
 import Projects from "./features/projects/Projects";
 import Poles from "./features/poles/Poles"
+import Tasks from "./features/tasks/Tasks"
 //import Users from "./features/users/Users";
 import store from "./app/store";
 
@@ -60,6 +61,9 @@ function App() {
               </Route>
              <Route path="/poles" exact>
              <Poles />
+           </Route>
+           <Route path="/tasks" exact>
+             <Tasks />
            </Route> 
            </Switch>
           )}
