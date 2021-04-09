@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from 'react-router-dom';
 import { Box, Text, TextInput, Button } from "grommet";
 
 import fire from "../../fire"
@@ -24,13 +24,11 @@ const Login = () => {
                 <TextInput type="email" placeholder="email" onChange={(e) => setEmail(e.target.value)} />
                 <TextInput type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
             </Box>
-            
-
             {alert && (
                 <Text color="red">{alert}</Text>
             )}
-
             <Button margin="small" label="ok" onClick={(e)=> handleSubmit(e)} />
+            <Box>Pas encore de compte ? <Link color='#ffffff' to="/signup">Signup</Link></Box>
         </Box>
     )
 }

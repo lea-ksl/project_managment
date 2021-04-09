@@ -8,15 +8,26 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        validate: {
+            validator: function(v) {
+              return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
+            },
+            message: props => `${props.value} is not a valid email!`
+        },
     },
     password: {
         type: String,
         required: true
     },
-    date: {
-        type: Date,
-        default: Date.now
+    project : [{type: mongoose.Types.ObjectId, ref: 'Project'}]
+})
+
+userSchema.set('toJSON', {
+    transform : (doc, returnedObject) => {
+        returnedObject.id = returnedObject._id.toString();
+        delete returnedObject._id;
+        delete returnedObject._v;
     }
 })
 

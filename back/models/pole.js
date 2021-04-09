@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const poleSchema = new mongoose.Schema({
     title: String,
     desc : String,
-    //projectId: String
+    projecId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Project'
+    }
 })
 
 poleSchema.set('toJSON', {

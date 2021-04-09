@@ -6,7 +6,7 @@ import Login from "./features/session/Login";
 import Projects from "./features/projects/Projects";
 import Poles from "./features/poles/Poles"
 import Tasks from "./features/tasks/Tasks"
-//import Users from "./features/users/Users";
+import Signup from "./features/session/Signup";
 import store from "./app/store";
 
 
@@ -50,22 +50,19 @@ function App() {
         
         {!isLoggedIn
           ? (   
-              <Route path="/" exact>
-                <Login />
-              </Route>
+            <Switch>
+            <Route path="/" exact>
+              <Login />
+            </Route>
+            <Route path="/signup" exact>
+              <Signup />
+            </Route>
+          </Switch>
           ) 
           : (
-            <Switch>
             <Route path="/" exact>
                 <Projects />
               </Route>
-             <Route path="/poles" exact>
-             <Poles />
-           </Route>
-           <Route path="/tasks" exact>
-             <Tasks />
-           </Route> 
-           </Switch>
           )}
       </Router>
  

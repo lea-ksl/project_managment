@@ -1,14 +1,25 @@
 const polesRouter = require('express').Router();
 const Pole = require('../models/pole');
+const Project = require('../models/project');
 
-polesRouter.get('/', async (req, res) => {
+polesRouter.get('/:projectid/', async (req, res) => {
+    const {projectId} = req.params
     const auth = req.currentUser;
     if(auth) {
-        const poles = await Pole.find({});
+        try {
+            const projectExists = await Project.findById(project)
+        
+            if (!projectExists) return res.status(404).json({ msg: 'Project not found' })
+            if (projectExists.author.toString() !== req.user.id) {
+              return res.status(401).json({ msg: 'Invalid access' })
+            }
+        const poles = await Pole.find({projectId});
         req.io.emit('UPDATE', poles);
         return res.json(poles.map((pole => pole.toJSON())));
-    }
+    }catch (error) {
     return res.status(403).send('Not authorized');
+    }
+}
 });
 
 polesRouter.post('/', async (req, res) => {

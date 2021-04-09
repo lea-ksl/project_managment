@@ -1,10 +1,22 @@
 const usersRouter = require('express').Router();
 const User = require('../models/user');
-const { check, validationResult } = require("express-validator");
-const bcrypt = require("bcryptjs");
 
-usersRouter.post(
-    "/",
+usersRouter.post('/', async (req, res)=> {
+  const auth = req.currentUser;
+  if (auth){
+      const user = new User(req.body)
+      const savedUser = user.save()
+      const users = await User.find({});
+      req.io.emit('UPDATE', users);
+      return res.status(201).json(savedUser);
+  }
+  return res.status(403).send('Not authorized')
+  
+});
+
+
+  /*usersRouter.post(
+    "/login",
     [
       check("name", "Name is required").not().isEmpty(),
       check("email", "Please Enter a valid email"),
@@ -21,22 +33,40 @@ usersRouter.post(
       const { name, email, password } = req.body;
       try {
         let user = await User.findOne({ email });
-        if (user) {
-          res.status(400).json({ errors: [{ msg: "User already exists" }] });
+        if(!user) {
+          errors.push({ "msg": "Invalid credidentials" });
+          return res.status(400).json({ data: errors });
         }
-          user = new User({
-          name,
-          email,
-          password,
-        });
-        const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(password, salt);
-        await user.save();
+        if(!name){
+          errors.push({"msg": "please enter your name"});
+      }
+        if(!email){
+            errors.push({"msg": "please enter your email"});
+        }
+        if(!password){
+            errors.push({"msg": "please enter your password"});
+        }
+        if(errors.length > 0) {
+            return res.status(400).json({
+                data: errors
+            });
+        }
+
+        if(user.password !== password) {
+            errors.push({ "msg": "Invalid credidentials" });
+            return res.status(400).json({ data: errors });
+        }
+
+        const payload = {
+            user: {
+                id: user.id
+            }
+        }
       } catch (error) {
           console.log(error.message)
           res.status(500).send("Server Error")
       }
     }
-  );
+  )*/
   
   module.exports = usersRouter;

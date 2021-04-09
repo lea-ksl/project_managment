@@ -13,6 +13,7 @@ app.use(decodeIDToken);
 app.use(express.json());
 var server = require("http").Server(app);
 const socketio = require("socket.io");
+const usersRouter = require('./controllers/users');
 
 
 // socket.io
@@ -39,6 +40,7 @@ mongoose.connect(
 app.use('/projects', projectsRouter);
 app.use('/poles', polesRouter);
 app.use('/tasks', tasksRouter);
+app.use('/users', usersRouter)
 
 app.get('/', (req, res) => {
     res.send('Hello ynov toulouse');

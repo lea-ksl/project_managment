@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 const projectSchema = new mongoose.Schema({
     title: String,
     desc: String,
-    chiefId: String
+    /*chiefId: {
+        type: mongoose.Schema.Types.ObjectId
+    }*/
+    chiefId : String
 })
 
 projectSchema.set('toJSON', {

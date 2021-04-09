@@ -98,12 +98,14 @@ const Projects = () => {
               <Text>{project.title}</Text>
               <Text>{project.desc}</Text>
               <Text>{project.chiefId}</Text>
+              <Button href="/:{projectId}"></Button>
             </CardConcave>
           ))
         : 
           <Text>Ceci sont les posts</Text>
         }
       </Card>
+      <Button label="sign out" onClick={()=> fire.auth().signOut()} />
     </Box>
   )
 }
