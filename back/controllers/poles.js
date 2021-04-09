@@ -2,7 +2,7 @@ const polesRouter = require('express').Router();
 const Pole = require('../models/pole');
 const Project = require('../models/project');
 
-polesRouter.get('/:projectid/', async (req, res) => {
+polesRouter.get('/:projectid', async (req, res) => {
     const {projectId} = req.params
     const auth = req.currentUser;
     if(auth) {
@@ -22,7 +22,8 @@ polesRouter.get('/:projectid/', async (req, res) => {
 }
 });
 
-polesRouter.post('/', async (req, res) => {
+polesRouter.post('/:projectid', async (req, res) => {
+    const {projectId} = req.params
     const auth = req.currentUser;
     if (auth) {
         const pole = new Pole(req.body)

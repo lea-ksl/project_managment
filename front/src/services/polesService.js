@@ -2,7 +2,7 @@ import axios from "axios";
 
 import fire from '../fire';
 
-const url = 'http://localhost:3001/poles'
+const url = 'http://localhost:3001/poles/:projectid'
 
 const createToken = async () => {
 

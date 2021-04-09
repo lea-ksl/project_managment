@@ -60,9 +60,14 @@ function App() {
           </Switch>
           ) 
           : (
-            <Route path="/" exact>
+            <Switch>
+            <Route path="/projects" exact>
                 <Projects />
               </Route>
+            <Route path="/projects/:projectId" exact>
+            <Poles />
+          </Route>
+          </Switch>
           )}
       </Router>
  

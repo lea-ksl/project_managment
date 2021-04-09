@@ -1,6 +1,6 @@
 import React from "react";
 import fire from '../../fire.js';
-
+import { useHistory } from "react-router-dom";
 import { Box, Button, Text, TextInput, Form, FormField } from "grommet";
 import { Refresh } from "grommet-icons";
 
@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { update, selectProjects } from './projectsSlice';
 
 const Projects = () => {
-
+  let history = useHistory();
   const projects = useSelector(selectProjects);
   const dispatch = useDispatch();
 
@@ -52,7 +52,7 @@ const Projects = () => {
 
   return(
     <Box align="center">
-      <a href="/poles">Poles</a>
+     
       <Form 
       className="" 
       onSubmit={(e) => onSubmit(e)}
@@ -98,11 +98,11 @@ const Projects = () => {
               <Text>{project.title}</Text>
               <Text>{project.desc}</Text>
               <Text>{project.chiefId}</Text>
-              <Button href="/:{projectId}"></Button>
+              <Button onClick={()=> history.push(`/projects/${project.id}`) }>Enter</Button>
             </CardConcave>
           ))
         : 
-          <Text>Ceci sont les posts</Text>
+          <Text>Ceci sont les projets</Text>
         }
       </Card>
       <Button label="sign out" onClick={()=> fire.auth().signOut()} />

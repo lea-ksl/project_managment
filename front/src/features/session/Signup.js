@@ -30,7 +30,7 @@ const Signup = () => {
     return (
       
         <Box fill align="center" justify="center" background="back" gap="small">
-            Inscriptions
+            Sign up
             <Box width="small" gap="small">
                 <TextInput type="text" placeholder="name" onChange={(e)=>setName(e.target.value)} />
                 <TextInput type="email" placeholder="email" onChange={(e)=>setEmail(e.target.value)} />
