@@ -1,20 +1,24 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { Box, Text, TextInput, Button } from "grommet";
-
+import { useHistory } from "react-router-dom";
 import fire from "../../fire"
 
 const Login = () => {
     const [email, setEmail] = React.useState();
     const [password, setPassword] = React.useState();
     const [alert, setalert] =React.useState();
+    let history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         fire.auth().signInWithEmailAndPassword(email, password)
           .catch((error) => {
            setalert('Incorrect username or password');
-          });
+          })
+          .then(response => {
+            history.push('/') 
+        })
         }
 
     return(
