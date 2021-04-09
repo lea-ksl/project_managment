@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    project : [{type: mongoose.Types.ObjectId, ref: 'Project'}]
+    projects : [{type: mongoose.Types.ObjectId, ref: 'Project'}]
 })
 
 userSchema.set('toJSON', {
