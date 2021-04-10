@@ -19,11 +19,11 @@ const createToken = async () => {
     return payloadHeader;
 }
 
-export const addPole = async (title, desc) => {
+export const addPole = async (title, desc, projectId) => {
     const header = await createToken();
-    console.log('addpole', title, desc)
+    console.log('addpole', title, desc, projectId)
     const payload ={
-        title, desc
+        title, desc, projectId
     }
     try {
         const res = await axios.post(url, payload, header);
@@ -34,7 +34,7 @@ export const addPole = async (title, desc) => {
     
 }
 
-export const getPoles = async () => {
+export const getPoles = async (projectI) => {
     const header = await createToken();
 
     try {

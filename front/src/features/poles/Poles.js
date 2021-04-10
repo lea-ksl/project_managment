@@ -1,6 +1,6 @@
 import React from "react";
 import fire from '../../fire.js';
-
+import { useHistory } from "react-router-dom";
 import { Box, Button, Text, TextInput, Form, FormField } from "grommet";
 import { Refresh } from "grommet-icons";
 
@@ -12,7 +12,9 @@ import { addPole, getPoles } from "../../services/polesService";
 import { useSelector, useDispatch } from 'react-redux';
 import { update, selectPoles } from './polesSlice';
 
-const Poles = () => {
+function Poles ({match}) {
+  let history = useHistory()
+  const projectId = match.params.id
 
   const poles = useSelector(selectPoles);
   const dispatch = useDispatch();
@@ -29,7 +31,7 @@ const Poles = () => {
     
   const onSubmit = (e) => {
     e.preventDefault();
-    addPole(title, desc).then(()=>setrefresh(true) )
+    addPole(title, desc, projectId).then(()=>setrefresh(true) )
   };
 
   const onChange = (e) => {
