@@ -45,3 +45,14 @@ export const getProjects = async () => {
     }
 }
 
+export const getProjectById = async (projectId) => {
+    
+    const header = await createToken();
+    try {
+        const res = await axios.get(`${url}/${projectId}`,header)
+    return res.data
+    } catch (e) {
+        console.error(e);
+    }
+    
+}

@@ -7,7 +7,11 @@ const projectSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    poles : [{type: mongoose.Types.ObjectId, ref: 'Pole'}]
+    poles : [
+        {
+            pole: {type: mongoose.Types.ObjectId, ref: 'Pole'}
+        }
+    ]
 })
 
 projectSchema.set('toJSON', {

@@ -12,15 +12,17 @@ projectsRouter.get('/', async (req, res) => {
     return res.status(403).send('Not authorized');  
 });
 
-projectsRouter.get('/:projectId', async (req, res) => {
+projectsRouter.get('/:id', async (req, res) => {
     const auth = req.currentUser;
     if (auth) {
-        const projectId = req.params.projectId;
-        const project = await (await Project.findById(projectId).populate('poles.pole')).exec();
+
+        const project = await Project.findById(req.params.id);
         if(!project) {
             return res.status(400).send('Project not found');
         }
-        res.status(200).send({project});
+        req.io.emit('UPDATE', project);
+        console.log("wehs", project)
+        return res.json(project.toJSON());
     }
     return res.status(403).send('Not authorized'); 
 })

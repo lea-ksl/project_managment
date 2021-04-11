@@ -1,9 +1,10 @@
 import React from "react";
 import { Grommet, Box, Button,  } from "grommet";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useParams } from 'react-router-dom';
 
 import Login from "./features/session/Login";
 import Projects from "./features/projects/Projects";
+import Project from "./features/projects/Project";
 import Poles from "./features/poles/Poles"
 import Tasks from "./features/tasks/Tasks"
 import Signup from "./features/session/Signup";
@@ -35,7 +36,6 @@ const theme = {
 
 function App() {
 
-
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   
     fire.auth().onAuthStateChanged((user) => {
@@ -64,8 +64,7 @@ function App() {
             <Route path="/projects" exact>
                 <Projects />
               </Route>
-            <Route path="/projects/:projectId" exact>
-            <Poles />
+            <Route path="/projects/:projectid" children={<Project />}>
           </Route>
           </Switch>
           )}
