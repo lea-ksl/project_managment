@@ -3,15 +3,7 @@ const mongoose = require('mongoose');
 const projectSchema = new mongoose.Schema({
     title: String,
     desc: String,
-    chiefId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
-    poles : [
-        {
-            pole: {type: mongoose.Types.ObjectId, ref: 'Pole'}
-        }
-    ]
+    chiefId: String
 })
 
 projectSchema.set('toJSON', {

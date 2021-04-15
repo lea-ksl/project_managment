@@ -6,14 +6,16 @@ import Card from "../../components/Card";
 import CardConcave from "../../components/CardConcave";
 
 import { getProjectById } from "../../services/projectsService";
-
+import {getPoles} from "../../services/polesService"
 import { useSelector, useDispatch } from 'react-redux';
 import { update, selectProject } from './projectSlice';
+import { update2, selectPoles } from '../poles/polesSlice';
 import PoleForm from '../poles/PoleForm';
 
 const Project = () => {
     let history = useHistory();
     const project = useSelector(selectProject);
+    const poles = useSelector(selectPoles)
     const dispatch = useDispatch();
     let projectId = useParams();
     const [showForm, setShowForm] = React.useState(false);
@@ -29,8 +31,17 @@ const Project = () => {
         console.log("fetch", fetchData)
         dispatch(update(fetchData));
     }
+    const fetchPoles = async () => {
+      const fetchData2 = await getPoles(projectId.projectid);
+      console.log("fetch2", fetchData2)
+      dispatch(update2(fetchData2));
+    }
+    const fetchMatch = () => {
+
+    }
     if (refresh) {
         fecthProject();
+        fetchPoles();
         setrefresh(false);
     }
   }, [refresh])
@@ -40,8 +51,8 @@ const Project = () => {
             <Box align="center">
                 title : {project.title}<br/>
                 desc : {project.desc}<br/>
-                {project.poles ? 
-          project.poles.map(pole => (
+                {poles ? 
+          poles.map(pole => (
             <CardConcave align="center"
             justify="center"
             round="medium"
@@ -60,7 +71,7 @@ const Project = () => {
             {/*<Button onClick={()=> //history.push(`/projects/${project.id}/poles`) }>Creer un pole</Button>*/}
             <Button onClick={show}>Créer un pole</Button>
             {showForm && (
-                <PoleForm />
+                <PoleForm projectId={projectId} />
             )}
             </Box>
 

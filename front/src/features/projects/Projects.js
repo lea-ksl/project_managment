@@ -21,7 +21,7 @@ const Projects = () => {
     title: "",
     desc: "",
   });
-  const {title, desc } = formData;
+  const {title, desc} = formData;
 
   const [refresh, setrefresh] = React.useState(true);
     

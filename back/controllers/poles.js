@@ -2,18 +2,17 @@ const polesRouter = require('express').Router();
 const Pole = require('../models/pole');
 const Project = require('../models/project');
 
-polesRouter.get('/:projectid', async (req, res) => {
-    const {projectId} = req.params.id
+polesRouter.get('/', async (req, res) => {
     const auth = req.currentUser;
     if(auth) {
         try {
-            const projectExists = await Project.findById(projectId)
-        
-            if (!projectExists) return res.status(404).json({ msg: 'Project not found' })
-            if (projectExists.author.toString() !== req.user.id) {
-              return res.status(401).json({ msg: 'Invalid access' })
-            }
-        const poles = await Pole.find({projectId});
+            
+            const poles = await Pole.find({}).populate('project');
+            
+            if (!poles) return res.status(404).json({ "msg": 'Project not found' })
+            
+            console.log("poles", poles)
+            
         req.io.emit('UPDATE', poles);
         return res.json(poles.map((pole => pole.toJSON())));
     }catch (error) {
@@ -22,8 +21,26 @@ polesRouter.get('/:projectid', async (req, res) => {
 }
 });
 
-polesRouter.post('/:projectid', async (req, res) => {
-    const {projectId} = req.params
+polesRouter.get('/:projectid', async (req, res) => {
+    const auth = req.currentUser;
+    if (auth) {
+        try {
+            const project = await Project.findById(req.params.projectid);
+        const poles = await Pole.find({projectId : project}).populate('task');
+        if(!poles) {
+            return res.status(400).send('Project not found');
+        }
+        req.io.emit('UPDATE', poles);
+        console.log("wehs2", poles)
+        return res.json(poles.map((pole => pole.toJSON())));
+    }catch (error) {
+        return res.status(403).send('Not authorized');
+        }
+    }
+})
+
+polesRouter.post('/', async (req, res) => {
+    //const {projectId} = req.params
     const auth = req.currentUser;
     if (auth) {
         const pole = new Pole(req.body)

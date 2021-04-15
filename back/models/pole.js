@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const poleSchema = new mongoose.Schema({
     title: String,
     desc : String,
-    projecId: {
+    projectId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Project'
     }

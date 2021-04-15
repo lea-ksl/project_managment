@@ -2,7 +2,7 @@ import axios from "axios";
 
 import fire from '../fire';
 
-const url = 'http://localhost:3001/poles/:projectid'
+const url = 'http://localhost:3001/poles'
 
 const createToken = async () => {
 
@@ -34,11 +34,12 @@ export const addPole = async (title, desc, projectId) => {
     
 }
 
-export const getPoles = async (projectI) => {
+export const getPoles = async (projectId) => {
     const header = await createToken();
-
     try {
-        const res = await axios.get(url, header)
+        
+        const res = await axios.get(`${url}/${projectId}`,header)
+        console.log('test', res)
         return res.data;
     } catch (e) {
         console.error(e);

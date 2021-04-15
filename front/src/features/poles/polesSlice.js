@@ -6,13 +6,13 @@ export const polesSlice = createSlice({
     value: [],
   },
   reducers: {
-    update: (state, action) => {
+    update2: (state, action) => {
       state.value = action.payload;
     },
   },
 });
 
-export const { update } = polesSlice.actions;
+export const { update2 } = polesSlice.actions;
 
 
 // The function below is called a selector and allows us to select a value from
