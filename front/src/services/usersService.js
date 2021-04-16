@@ -40,3 +40,15 @@ export const getUsers = async () => {
         console.error(e);
     }
 }
+
+export const getUserById = async (user) => {
+    
+    const header = await createToken();
+    try {
+        const res = await axios.get(`${url}/${user}`,header)
+    return res.data
+    } catch (e) {
+        console.error(e);
+    }
+    
+}

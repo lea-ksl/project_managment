@@ -26,7 +26,7 @@ const Projects = () => {
   const [refresh, setrefresh] = React.useState(true);
     
   const user = fire.auth().currentUser;
-  const chiefId = user.email;
+  const chiefId = user.name;
     
   const onSubmit = (e) => {
     e.preventDefault();

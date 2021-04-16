@@ -1,6 +1,33 @@
 const usersRouter = require('express').Router();
 const User = require('../models/user');
 
+usersRouter.get('/', async (req,res) => {
+  const auth = req.currentUser;
+  if(auth) {
+    const users = await User.find({});
+    req.io.emit('UPDATE', users);
+    return res.json(users.map((user => user.toJSON())));
+  }
+});
+
+usersRouter.get('/:user', async (req, res) => {
+  const auth = req.currentUser;
+  if (auth) {
+      try {
+          const pole = await Pole.findById(req.params.user);
+      const user = await Pole.findById(pole);
+      if(!user) {
+          return res.status(400).send('Project not found');
+      }
+      req.io.emit('UPDATE', user);
+      console.log("wehs2", user)
+      return res.json(user.toJSON());
+  }catch (error) {
+      return res.status(403).send('Not authorized');
+      }
+  }
+})
+
 usersRouter.post('/', async (req, res)=> {
   const auth = req.currentUser;
   if (auth){

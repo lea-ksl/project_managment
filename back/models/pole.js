@@ -6,7 +6,8 @@ const poleSchema = new mongoose.Schema({
     projectId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Project'
-    }
+    },
+    userId: String
 })
 
 poleSchema.set('toJSON', {

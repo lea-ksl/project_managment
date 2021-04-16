@@ -10,6 +10,8 @@ import {getPoles} from "../../services/polesService"
 import { useSelector, useDispatch } from 'react-redux';
 import { update, selectProject } from './projectSlice';
 import { update2, selectPoles } from '../poles/polesSlice';
+import { getUserById } from "../../services/usersService"
+import { updateUser, selectUser} from '../users/userSlice';
 import PoleForm from '../poles/PoleForm';
 
 const Project = () => {
@@ -18,9 +20,9 @@ const Project = () => {
     const poles = useSelector(selectPoles)
     const dispatch = useDispatch();
     let projectId = useParams();
+    const user = useSelector(selectUser)
     const [showForm, setShowForm] = React.useState(false);
     const [refresh, setrefresh] = React.useState(true);
-
     const show = () => {
         setShowForm(!showForm);
       }
@@ -36,9 +38,7 @@ const Project = () => {
       console.log("fetch2", fetchData2)
       dispatch(update2(fetchData2));
     }
-    const fetchMatch = () => {
 
-    }
     if (refresh) {
         fecthProject();
         fetchPoles();
@@ -61,7 +61,7 @@ const Project = () => {
             width="small">
               <Text>{pole.title}</Text>
               <Text>{pole.desc}</Text>
-              <Text>{pole.chiefId}</Text>
+              <Text>{pole.userId}</Text>
               <Button onClick={()=> history.push(`/projects/${project.id}/poles/${pole.id}`) }>Enter</Button>
             </CardConcave>
           ))
