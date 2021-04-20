@@ -1,26 +1,54 @@
 const tasksRouter = require('express').Router();
+const Project = require('../models/project');
 const Task = require('../models/task');
 
 tasksRouter.get('/', async (req, res) => {
     const auth = req.currentUser;
     if(auth) {
-        const tasks = await Task.find({});
-        req.io.emit('UPDATE', tasks);
-        return res.json(tasks.map((task => task.toJSON())));
+        try {
+            const tasks = await Task.find({}).populate('project');
+            if (!tasks) return res.status(404).json({ "msg": 'Pole not found' })
+            req.io.emit('UPDATE', tasks);
+            return res.json(tasks.map((task => task.toJSON())));
+        } catch (error) {
+            return res.status(403).send('Not authorized');
+        }
     }
-    return res.status(403).send('Not authorized');
 });
+
+tasksRouter.get('/:projectid', async (req, res) => {
+    const auth = req.currentUser;
+    if (auth) {
+        try {
+            const project = await Project.findById(req.params.projectid);
+            const tasks = await Task.find({projectId: project});
+            if(!tasks) {
+                return res.status(400).send('Tasks not found');
+            }
+            req.io.emit('UPDATE', tasks);
+            console.log("wesh4", tasks)
+            return res.json(tasks.map((task => task.toJSON())));
+        } catch (error) {
+            return res.status(403).send('Not authorized');
+        }
+    }
+})
 
 tasksRouter.post('/', async (req, res) => {
     const auth = req.currentUser;
     if (auth) {
-        const task = new Task(req.body)
+        try {
+            const task = new Task(req.body)
         const savedTask = task.save()
         const tasks = await Task.find({});
         req.io.emit('UPDATE', tasks);
         return res.status(201).json(savedTask);
+        }
+        catch {
+            return res.status(403).send('Not authorized');
+        }
     }
-    return res.status(403).send('Not authorized');
+    
 })
 
 module.exports = tasksRouter;

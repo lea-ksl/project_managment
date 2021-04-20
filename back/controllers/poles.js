@@ -9,7 +9,7 @@ polesRouter.get('/', async (req, res) => {
             
             const poles = await Pole.find({}).populate('project');
             
-            if (!poles) return res.status(404).json({ "msg": 'Project not found' })
+            if (!poles) return res.status(404).json({ "msg": 'Pole not found' })
             
             console.log("poles", poles)
             
@@ -28,7 +28,7 @@ polesRouter.get('/:projectid', async (req, res) => {
             const project = await Project.findById(req.params.projectid);
         const poles = await Pole.find({projectId : project}).populate('task');
         if(!poles) {
-            return res.status(400).send('Project not found');
+            return res.status(400).send('Poles not found');
         }
         req.io.emit('UPDATE', poles);
         console.log("wehs2", poles)

@@ -17,7 +17,7 @@ projectsRouter.get('/:id', async (req, res) => {
     const auth = req.currentUser;
     if (auth) {
 
-        const project = await Project.findById(req.params.id).populate('poles');
+        const project = await Project.findById(req.params.id).populate('poles', 'tasks');
         if(!project) {
             return res.status(400).send('Project not found');
         }
@@ -28,7 +28,7 @@ projectsRouter.get('/:id', async (req, res) => {
     return res.status(403).send('Not authorized'); 
 })
 
-projectsRouter.put('/:id', async (req, res) => {
+/*projectsRouter.put('/:id', async (req, res) => {
     const auth = req.currentUser;
     if(auth) {
         let project = await Project.findById(req.params.id).populate('poles.pole').exec();
@@ -53,7 +53,7 @@ projectsRouter.put('/:id', async (req, res) => {
             res.status(500).json({ "error": "Server error", error });
         }
     }
-});
+});*/
 
 projectsRouter.post('/', async (req, res)=> {
     const auth = req.currentUser;

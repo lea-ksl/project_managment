@@ -9,9 +9,8 @@ import { getProjectById } from "../../services/projectsService";
 import {getPoles} from "../../services/polesService"
 import { useSelector, useDispatch } from 'react-redux';
 import { update, selectProject } from './projectSlice';
+import Tasks from '../tasks/Tasks';
 import { update2, selectPoles } from '../poles/polesSlice';
-import { getUserById } from "../../services/usersService"
-import { updateUser, selectUser} from '../users/userSlice';
 import PoleForm from '../poles/PoleForm';
 
 const Project = () => {
@@ -20,7 +19,6 @@ const Project = () => {
     const poles = useSelector(selectPoles)
     const dispatch = useDispatch();
     let projectId = useParams();
-    const user = useSelector(selectUser)
     const [showForm, setShowForm] = React.useState(false);
     const [refresh, setrefresh] = React.useState(true);
     const show = () => {
@@ -73,6 +71,8 @@ const Project = () => {
             {showForm && (
                 <PoleForm projectId={projectId} />
             )}
+
+            <Tasks projectId={projectId} />
             </Box>
 
         )

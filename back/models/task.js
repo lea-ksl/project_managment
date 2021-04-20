@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 const taskSchema = new mongoose.Schema({
     content: String,
     statut : String,
-    //poleId: String
+    projectId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Project'
+    },
+    userId: String
 })
 
 taskSchema.set('toJSON', {

@@ -19,11 +19,11 @@ const createToken = async () => {
     return payloadHeader;
 }
 
-export const addTask = async (content, statut) => {
+export const addTask = async (content, statut, projectId, userId) => {
     const header = await createToken();
-    console.log('addtask', content, statut)
+    console.log('addtask', content, statut, projectId, userId)
     const payload ={
-        content, statut
+        content, statut, projectId, userId
     }
     try {
         const res = await axios.post(url, payload, header);
@@ -34,11 +34,12 @@ export const addTask = async (content, statut) => {
     
 }
 
-export const getTasks = async () => {
+export const getTasks = async (projectId) => {
     const header = await createToken();
 
     try {
-        const res = await axios.get(url, header)
+        const res = await axios.get(`${url}/${projectId}`, header)
+        console.log('test4', res)
         return res.data;
     } catch (e) {
         console.error(e);
