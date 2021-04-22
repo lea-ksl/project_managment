@@ -1,7 +1,7 @@
 import React from "react";
 import fire from '../../fire.js';
 import { useHistory } from "react-router-dom";
-import { Box, Button, Text, TextInput, Form, FormField } from "grommet";
+import { Box, Button, Text, TextInput, Form, FormField, Header, Heading } from "grommet";
 import { Refresh } from "grommet-icons";
 
 import Card from "../../components/Card";
@@ -24,9 +24,12 @@ const Projects = () => {
   const {title, desc} = formData;
 
   const [refresh, setrefresh] = React.useState(true);
-    
+  const [showForm, setShowForm] = React.useState(false);
+  const show = () => {
+    setShowForm(!showForm);
+  }
   const user = fire.auth().currentUser;
-  const chiefId = user.name;
+  const chiefId = user.email;
     
   const onSubmit = (e) => {
     e.preventDefault();
@@ -52,59 +55,60 @@ const Projects = () => {
 
   return(
     <Box align="center">
-     
-      <Form 
-      className="" 
-      onSubmit={(e) => onSubmit(e)}
-      onReset={() => setFormData({})}>
-        <FormField name="name" htmlFor="text-input-id">
-          <TextInput
-          placeholder="Title"
-          value={title}
-          name="title"
-          className=""
-          onChange={(e) => onChange(e)}
-          required
-          />
-          <TextInput
-          placeholder="Description"
-          value={desc}
-          name="desc"
-          className=""
-          onChange={(e) => onChange(e)}
-          required
-          />
-        </FormField>
-        <Button type="submit" primary label="Submit" />
-        <Button type="reset" label="Reset" />
-      </Form>
+      <Header align="center" direction="row" flex={false} justify="between" gap="medium">
+        <Heading>Projects</Heading>
+      </Header>
+      <Button onClick={show} hoverIndicator color="dark-2" active={false} plain={false} primary={false} reverse={false} secondary={false}>Create project</Button>
+      {showForm && (
+        <Form 
+        className="" 
+        onSubmit={(e) => onSubmit(e)}
+        onReset={() => setFormData({})}>
+          <FormField name="name" htmlFor="text-input-id">
+            <TextInput
+            placeholder="Title"
+            value={title}
+            name="title"
+            className=""
+            onChange={(e) => onChange(e)}
+            required
+            />
+            <TextInput
+            placeholder="Description"
+            value={desc}
+            name="desc"
+            className=""
+            onChange={(e) => onChange(e)}
+            required
+            />
+          </FormField>
+          <Button type="submit" primary label="Submit" />
+          <Button type="reset" label="Reset" />
+        </Form>          
+      )}
+      
       <Button icon={<Refresh />} onClick={()=> setrefresh(true)}/>
-      <Card 
-      round="medium" 
-      padding="medium" 
-      justify="center"
-      align="center"
-      margin="medium"
-      width="medium"
-      height="medium">
+      <Box align="stretch" justify="center" direction="row-responsive" wrap="true" width="xlarge" background={{"dark":false}}>
         {projects ? 
           projects.map(project => (
-            <CardConcave align="center"
+            <Card fil="horizontal"
+            round="medium" 
+            padding="medium" 
             justify="center"
-            round="medium"
-            padding="medium"
+            align="center"
             margin="small"
-            width="small">
-              <Text>{project.title}</Text>
-              <Text>{project.desc}</Text>
-              <Text>{project.chiefId}</Text>
-              <Button onClick={()=> history.push(`/projects/${project.id}`) }>Enter</Button>
-            </CardConcave>
+            width="medium"
+            height="small">
+              <Text>Title : {project.title}</Text>
+              <Text>Descirption : {project.desc}</Text>
+              <Text>Lead : {project.chiefId}</Text>
+              <Button onClick={()=> history.push(`/projects/${project.id}`)} hoverIndicator color="dark-2" active={false} plain={false} primary={false} reverse={false} secondary={false}>Enter</Button>
+            </Card>
           ))
         : 
           <Text>Ceci sont les projets</Text>
         }
-      </Card>
+      </Box>
       <Button label="sign out" onClick={()=> fire.auth().signOut()} />
     </Box>
   )

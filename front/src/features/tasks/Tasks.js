@@ -27,7 +27,10 @@ const Tasks = () => {
   const [value, setValue] = React.useState('');
   const [valueUser, setValueUser] = React.useState('');
   const [refresh, setrefresh] = React.useState(true);
-    
+  const [showForm, setShowForm] = React.useState(false);
+  const show = () => {
+    setShowForm(!showForm);
+  }
   let userId = ""
 let statut = ""
   const options = users.map(user => (
@@ -44,7 +47,7 @@ let statut = ""
     
   const onSubmit = (e) => {
     e.preventDefault();
-    userId = options[0].value;
+    userId = valueUser.value;
     statut = value.value;
     addTask(content, statut, projectId, userId)
   };
@@ -74,50 +77,46 @@ let statut = ""
 
   return(
     <Box align="center">
-      test
-      <Form 
-      className="" 
-      onSubmit={(e) => onSubmit(e)}
-      onReset={() => setFormData({})}>
-        <FormField name="name" htmlFor="text-input-id">
-          <TextInput
-          placeholder="Content"
-          value={content}
-          name="content"
-          className=""
-          onChange={(e) => onChange(e)}
-          required
-          />
-          
-          <Select
-          placeholder="statut"
-          options={statutList}
-          labelKey="label"
-          valueKey="value"
-          value={value}
-          onChange={({ value: nextValue }) => setValue(nextValue)}
-          />
-          <Select
-          placeholder="User"
-          options={options}
-          labelKey="label"
-          valueKey="value"
-          value={valueUser}
-          onChange={({ value: nextValue }) => setValueUser(nextValue)}
-          />
-        </FormField>
-        <Button type="submit" primary label="Submit" />
-        <Button type="reset" label="Reset" />
-      </Form>
+      <Button onClick={show} hoverIndicator color="dark-2" active={false} plain={false} primary={false} reverse={false} secondary={false}>Create task</Button>
+            {showForm && (
+                <Form 
+                className="" 
+                onSubmit={(e) => onSubmit(e)}
+                onReset={() => setFormData({})}>
+                  <FormField name="name" htmlFor="text-input-id">
+                    <TextInput
+                    placeholder="Content"
+                    value={content}
+                    name="content"
+                    className=""
+                    onChange={(e) => onChange(e)}
+                    required
+                    />
+                    
+                    <Select
+                    placeholder="statut"
+                    options={statutList}
+                    labelKey="label"
+                    valueKey="value"
+                    value={value}
+                    onChange={({ value: nextValue }) => setValue(nextValue)}
+                    />
+                    <Select
+                    placeholder="User"
+                    options={options}
+                    labelKey="label"
+                    valueKey="value"
+                    value={valueUser}
+                    onChange={({ value: nextValue }) => setValueUser(nextValue)}
+                    />
+                  </FormField>
+                  <Button type="submit" primary label="Submit" />
+                  <Button type="reset" label="Reset" />
+                </Form>
+            )}
+      
       <Button icon={<Refresh />} onClick={()=> setrefresh(true)}/>
-      <Card 
-      round="medium" 
-      padding="medium" 
-      justify="center"
-      align="center"
-      margin="medium"
-      width="medium"
-      height="medium">
+      <Box align="stretch" justify="center" direction="row-responsive" wrap="true" width="large" background={{"dark":false}}>
         {tasks ? 
           tasks.map(task => (
             <CardConcave align="center"
@@ -125,18 +124,17 @@ let statut = ""
             round="medium"
             padding="medium"
             margin="small"
-            width="small">
-              <Text>{task.content}</Text>
-              <Text>{task.userId}</Text>
-              <Text><span>{task.statut}</span></Text>
-              <Button onClick={()=> history.push(`/tasks/${task.id}`) }>Enter</Button>
-                        
+            width="medium">
+              <Text>Task : {task.content}</Text>
+              <Text>Attribued at : {task.userId}</Text>
+              <Text>Status : {task.statut}</Text>
+              <Button onClick={()=> history.push(`/tasks/${task.id}`)} hoverIndicator color="dark-2" active={false} plain={false} primary={false} reverse={false} secondary={false}>Edit</Button>         
             </CardConcave>
           ))
         : 
           <Text>Ceci sont les taches</Text>
         }
-      </Card>
+      </Box>
     </Box>
   )
 }

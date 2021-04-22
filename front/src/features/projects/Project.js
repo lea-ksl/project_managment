@@ -1,7 +1,7 @@
 import React from "react";
 import fire from '../../fire.js';
 import { useHistory, useParams } from "react-router-dom";
-import { Box, Button, Text, TextInput, Form, FormField } from "grommet";
+import { Box, Button, Header, Heading, Text } from "grommet";
 import Card from "../../components/Card";
 import CardConcave from "../../components/CardConcave";
 
@@ -47,8 +47,10 @@ const Project = () => {
         return(
 
             <Box align="center">
-                title : {project.title}<br/>
-                desc : {project.desc}<br/>
+              <Header align="center" direction="row" flex={false} justify="between" gap="medium">
+              <Heading>{project.title}</Heading>
+                <Text>{project.desc}</Text>
+                </Header>
                 {/*{poles ? 
           poles.map(pole => (
             <CardConcave align="center"
@@ -66,12 +68,12 @@ const Project = () => {
         : 
           <Text>Ceci sont les poles</Text>
         }
-            {/*<Button onClick={()=> //history.push(`/projects/${project.id}/poles`) }>Creer un pole</Button>*/}
+            {/*<Button onClick={()=> //history.push(`/projects/${project.id}/poles`) }>Creer un pole</Button>
             <Button onClick={show}>Créer un pole</Button>
             {showForm && (
                 <PoleForm projectId={projectId} />
             )}
-
+*/}
             <Tasks projectId={projectId} />
             </Box>
 
