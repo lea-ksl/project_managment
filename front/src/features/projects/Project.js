@@ -49,7 +49,7 @@ const Project = () => {
             <Box align="center">
                 title : {project.title}<br/>
                 desc : {project.desc}<br/>
-                {poles ? 
+                {/*{poles ? 
           poles.map(pole => (
             <CardConcave align="center"
             justify="center"

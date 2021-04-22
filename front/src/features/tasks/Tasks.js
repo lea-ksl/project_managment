@@ -6,7 +6,7 @@ import { Refresh } from "grommet-icons";
 
 import Card from "../../components/Card";
 import CardConcave from "../../components/CardConcave";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { addTask, getTasks } from "../../services/tasksService";
 import { getUsers } from "../../services/usersService"
 import { updateUsers, selectUsers} from '../users/usersSlice';
@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { update, selectTasks } from './tasksSlice';
 
 const Tasks = () => {
+  let history = useHistory();
   const users = useSelector(selectUsers);
   const tasks = useSelector(selectTasks);
   const dispatch = useDispatch();
@@ -128,6 +129,8 @@ let statut = ""
               <Text>{task.content}</Text>
               <Text>{task.userId}</Text>
               <Text><span>{task.statut}</span></Text>
+              <Button onClick={()=> history.push(`/tasks/${task.id}`) }>Enter</Button>
+                        
             </CardConcave>
           ))
         : 
