@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 const projectSchema = new mongoose.Schema({
     title: String,
     desc: String,
-    chiefId: String
+    chiefId: String,
+    tags: [{
+        type: String
+    }]
+    
 })
 
 projectSchema.set('toJSON', {

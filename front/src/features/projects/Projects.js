@@ -3,7 +3,7 @@ import fire from '../../fire.js';
 import { useHistory } from "react-router-dom";
 import { Box, Button, Text, TextInput, Form, FormField, Header, Heading } from "grommet";
 import { Refresh } from "grommet-icons";
-
+import { TagsInput } from "react-tag-input-component";
 import Card from "../../components/Card";
 import CardConcave from "../../components/CardConcave";
 
@@ -16,7 +16,7 @@ const Projects = () => {
   let history = useHistory();
   const projects = useSelector(selectProjects);
   const dispatch = useDispatch();
-
+  const [tags, setTags] = React.useState(["papaya"]);
   const [formData, setFormData] = React.useState({    
     title: "",
     desc: "",
@@ -33,7 +33,7 @@ const Projects = () => {
     
   const onSubmit = (e) => {
     e.preventDefault();
-    addProject(title, desc, chiefId).then(()=>setrefresh(true) )
+    addProject(title, desc, chiefId, tags).then(()=>setrefresh(true) )
   };
 
   const onChange = (e) => {
@@ -81,6 +81,12 @@ const Projects = () => {
             onChange={(e) => onChange(e)}
             required
             />
+            <TagsInput
+        value={tags}
+        onChange={setTags}
+        name="fruits"
+        placeHolder="enter fruits"
+      />
           </FormField>
           <Button type="submit" primary label="Submit" />
           <Button type="reset" label="Reset" />

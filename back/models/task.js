@@ -7,7 +7,8 @@ const taskSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Project'
     },
-    userId: String
+    userId: String,
+    //tag: String
 })
 
 taskSchema.set('toJSON', {
