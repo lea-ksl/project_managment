@@ -6,13 +6,13 @@ export const tasksSlice = createSlice({
     value: [],
   },
   reducers: {
-    update: (state, action) => {
+    updateTasks: (state, action) => {
       state.value = action.payload;
     },
   },
 });
 
-export const { update } = tasksSlice.actions;
+export const { updateTasks } = tasksSlice.actions;
 
 
 // The function below is called a selector and allows us to select a value from

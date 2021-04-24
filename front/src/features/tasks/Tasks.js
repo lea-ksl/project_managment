@@ -8,15 +8,18 @@ import Card from "../../components/Card";
 import CardConcave from "../../components/CardConcave";
 import { useHistory, useParams } from "react-router-dom";
 import { addTask, getTasks } from "../../services/tasksService";
-import { getUsers } from "../../services/usersService"
+import { getUsers } from "../../services/usersService";
+import { getProjectById} from '../../services/projectsService';
 import { updateUsers, selectUsers} from '../users/usersSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import { update, selectTasks } from './tasksSlice';
+import { updateTasks, selectTasks } from './tasksSlice';
+import {update, selectProject} from '../projects/projectSlice';
 
 const Tasks = () => {
   let history = useHistory();
   const users = useSelector(selectUsers);
   const tasks = useSelector(selectTasks);
+  const projectTags = useSelector(selectProject);
   const dispatch = useDispatch();
   let project = useParams();
   let projectId = project.projectid;
@@ -26,16 +29,22 @@ const Tasks = () => {
   const {content } = formData;
   const [value, setValue] = React.useState('');
   const [valueUser, setValueUser] = React.useState('');
+  const [valueTag, setValueTag] = React.useState('');
   const [refresh, setrefresh] = React.useState(true);
   const [showForm, setShowForm] = React.useState(false);
   const show = () => {
     setShowForm(!showForm);
   }
   let userId = ""
-let statut = ""
+  let statut = ""
+  let tag = ""
   const options = users.map(user => (
     { label : user.name, value: user.name}
   ));
+
+  const optionsTags = projectTags.tags;
+  console.log(optionsTags)
+  
 
   const statutList = [
     {label : "To do", value: "To do", color: "red"},
@@ -48,8 +57,9 @@ let statut = ""
   const onSubmit = (e) => {
     e.preventDefault();
     userId = valueUser.value;
+    tag = valueTag;
     statut = value.value;
-    addTask(content, statut, projectId, userId)
+    addTask(content, statut, projectId, userId, tag)
   };
 
   const onChange = (e) => {
@@ -63,14 +73,20 @@ let statut = ""
       const fetchData = await getUsers();
       console.log('users', fetchData)
       dispatch(updateUsers(fetchData));
+    }
+    const fecthProject = async () => {
+      const fetchData = await getProjectById(project.projectid);
+      console.log("fetch5", fetchData)
+      dispatch(update(fetchData));
   }
     const fecthTasks = async () => {
         const fetchData = await getTasks(project.projectid);
-        dispatch(update(fetchData));
+        dispatch(updateTasks(fetchData));
     }
     if (refresh) {
         fecthTasks();
         fecthUsers();
+        fecthProject();
         setrefresh(false);
     }
   }, [refresh])
@@ -108,6 +124,12 @@ let statut = ""
                     valueKey="value"
                     value={valueUser}
                     onChange={({ value: nextValue }) => setValueUser(nextValue)}
+                    />
+                    <Select
+                    placeholder="Pole"
+                    options={optionsTags}
+                    value={valueTag}
+                    onChange={({ value: nextValue }) => setValueTag(nextValue)}
                     />
                   </FormField>
                   <Button type="submit" primary label="Submit" />

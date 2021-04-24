@@ -8,7 +8,7 @@ const taskSchema = new mongoose.Schema({
         ref: 'Project'
     },
     userId: String,
-    //tag: String
+    tag: String
 })
 
 taskSchema.set('toJSON', {
