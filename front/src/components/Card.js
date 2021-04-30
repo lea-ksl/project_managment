@@ -5,9 +5,10 @@ import styled from "styled-components";
 
 const Card = styled(Box)`
 
-background: #292929;
-box-shadow:  5px 5px 10px #202020, 
-             -5px -5px 10px #323232;
+border: 1px solid #E5E5E5;
+box-sizing: border-box;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 20px;
 `;
 
 export default Card;

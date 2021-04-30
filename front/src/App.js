@@ -61,7 +61,7 @@ function App() {
           ) 
           : (
             <Switch>
-            <Route path="/projects" exact>
+              <Route path="/" exact>
                 <Projects />
               </Route>
             <Route path="/projects/:projectid" children={<Project />}>

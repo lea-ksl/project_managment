@@ -2,7 +2,7 @@ import React from "react";
 import fire from '../../fire.js';
 import { useHistory, useParams } from "react-router-dom";
 import { Box, Button, Header, Heading, Text } from "grommet";
-
+import MySidebar from "../sidebar/MySidebar"
 import { getProjectById } from "../../services/projectsService";
 import { useSelector, useDispatch } from 'react-redux';
 import { update, selectProject } from './projectSlice';
@@ -35,12 +35,15 @@ const Project = () => {
         
         return(
 
-            <Box align="center">
+            <Box>
+              <MySidebar />
+              <Box align="center">
               <Header align="center" direction="row" flex={false} justify="between" gap="medium">
               <Heading>{project.title}</Heading>
                 <Text>{project.desc}</Text>
               </Header>
               <Tasks projectId={projectId} />
+              </Box>
             </Box>
 
         )
