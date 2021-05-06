@@ -57,4 +57,29 @@ export const getProjectById = async (projectId) => {
     
 }
 
+export const getProjectByIdForEdit = async (projectId) => {
+    
+    const header = await createToken();
+    try {
+        const res = await axios.get(`${url}/edit/${projectId}`,header)
+    return res.data
+    } catch (e) {
+        console.error(e);
+    }
+    
+}
+
+export const editProject = async (title, desc, tags, projectId) => {
+    const header = await createToken();
+    console.log('editproject', title, desc, tags)
+    const payload ={
+        title, desc, tags
+    }
+    try {
+        const res = await axios.patch(`${url}/edit/${projectId}`, payload, header);
+        return res.data;
+    }catch (e) {
+        console.error(e);
+    }
+}
 

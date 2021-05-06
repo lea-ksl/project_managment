@@ -28,32 +28,46 @@ projectsRouter.get('/:id', async (req, res) => {
     return res.status(403).send('Not authorized'); 
 })
 
-/*projectsRouter.put('/:id', async (req, res) => {
+projectsRouter.get('/edit/:id', async (req, res) => {
     const auth = req.currentUser;
-    if(auth) {
-        let project = await Project.findById(req.params.id).populate('poles.pole').exec();
+    if (auth) {
+        try {
+            const project = await Project.findById(req.params.id).populate('poles', 'tasks');
         if(!project) {
             return res.status(400).send('Project not found');
         }
-        const pole = await project.poles.find(pole => pole._id == project);
-        if (!pole) {
-            return res.status(400).send('Pole not found');
+        req.io.emit('UPDATE', project);
+        console.log("wehs", project)
+        return res.json(project.toJSON());
+        }catch (error) {
+            return res.status(403).send('Not authorized'); 
         }
-        try {
-            const update = {
-                poles: [...project.poles, {
-                    pole: project,
-                }]
-            };
-            const projectUpdate = await Project.findByIdAndUpdate(project.id, update);
-            project = await (await Project.findById(req.params.id)).populate('poles.pole').exec();
-            res.status(200).json({project, "msg": "Project updated"});
-        } catch (err) {
-            console.log(err);
-            res.status(500).json({ "error": "Server error", error });
-        }
+        
     }
-});*/
+    
+})
+
+projectsRouter.patch('/edit/:id', async (req, res) => {
+    const auth = req.currentUser;
+    if (auth) {
+        try {
+            const id = req.params.id;
+            const projectData = req.body;
+            console.log('projectData', projectData)
+            const project = await Project.findByIdAndUpdate(id, projectData);
+            console.log('project', project )
+            if (project) {
+                res.send(project);
+            } else {
+                return res.status(400).send('Project not found');
+            }
+        }catch (error) {
+            return res.status(403).send('Not authorized'); 
+        }
+        
+    }
+    
+})
 
 projectsRouter.post('/', async (req, res)=> {
     const auth = req.currentUser;

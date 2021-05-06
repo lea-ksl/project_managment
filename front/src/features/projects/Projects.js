@@ -7,13 +7,14 @@ import { TagsInput } from "react-tag-input-component";
 import Card from "../../components/Card";
 import CardConcave from "../../components/CardConcave";
 import MySidebar from "../sidebar/MySidebar"
-import { addProject, getProjects } from "../../services/projectsService";
+import { addProject, getProjects, getProjectByIdForEdit } from "../../services/projectsService";
 
 import { useSelector, useDispatch } from 'react-redux';
 import { update, selectProjects } from './projectsSlice';
-
+import { update as updateOne, selectProject} from './projectSlice';
 const Projects = () => {
   let history = useHistory();
+  let project = ""
   const projects = useSelector(selectProjects);
   const dispatch = useDispatch();
   const [tags, setTags] = React.useState(["Communication"]);
@@ -47,12 +48,19 @@ const Projects = () => {
         const fetchData = await getProjects();
         dispatch(update(fetchData));
     }
+    const fecthProject = async () => {
+      const fetchData = await getProjectByIdForEdit(project.id);
+      console.log("fetch", fetchData)
+     dispatch(updateOne(fetchData))
+  }
     if (refresh) {
         fecthProjects();
+      fecthProject()
         setrefresh(false);
     }
   }, [refresh])
 
+  console.log(projects)
   return(
     <Box>
       <MySidebar />
@@ -97,7 +105,7 @@ const Projects = () => {
       
       <Button icon={<Refresh />} onClick={()=> setrefresh(true)}/>
       <Box align="stretch" justify="center" direction="row-responsive" wrap="true" width="xlarge" background={{"dark":false}}>
-        {projects ? 
+        {projects && projects.length > 0 ? 
           projects.map(project => (
             <Card fil="horizontal"
             round="medium" 
@@ -109,6 +117,7 @@ const Projects = () => {
             height="small">
               <Heading level="3" textAlign="center">{project.title}</Heading>
               <Button  style={{background: "#4F5182", color:"#ffffff", border:"none", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)", borderRadius: "10px"}} onClick={()=> history.push(`/projects/${project.id}`)} hoverIndicator active={false} plain={false} primary={false} reverse={false} secondary={false}>Enter</Button>
+              <Button onClick={()=> history.push(`/projects/edit/${project.id}`)} hoverIndicator color="dark-2" active={false} plain={false} primary={false} reverse={false} secondary={false}>Edit</Button>
             </Card>
           ))
         : 

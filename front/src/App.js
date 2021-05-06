@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch, useParams } from 'react-router-
 import Login from "./features/session/Login";
 import Projects from "./features/projects/Projects";
 import Project from "./features/projects/Project";
+import EditProject from "./features/projects/EditProject"
 import Poles from "./features/poles/Poles"
 import Tasks from "./features/tasks/Tasks"
 import Signup from "./features/session/Signup";
@@ -64,7 +65,10 @@ function App() {
               <Route path="/" exact>
                 <Projects />
               </Route>
-            <Route path="/projects/:projectid" children={<Project />}>
+          
+          <Route path="/projects/edit/:projectid"><EditProject />
+          </Route>
+          <Route path="/projects/:projectid" children={<Project />}>
           </Route>
           </Switch>
           )}
