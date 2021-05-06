@@ -1,10 +1,6 @@
 import React from "react";
-import fire from '../../fire.js';
-
 import { Box, Button, Text, TextInput, Form, FormField, Select } from "grommet";
 import { Refresh } from "grommet-icons";
-
-import Card from "../../components/Card";
 import CardConcave from "../../components/CardConcave";
 import { useHistory, useParams } from "react-router-dom";
 import { addTask, getTasks } from "../../services/tasksService";
@@ -44,7 +40,10 @@ const Tasks = () => {
 
   const optionsTags = projectTags.tags;
   console.log(optionsTags)
-  
+  console.log(projectTags)
+  const [filterByStatus, setFilterStatus] = React.useState({value: ""})
+  const [filterByName, setFilterName] = React.useState({value: ""})
+  const [filterByTag, setFilterTag] = React.useState({option: ""})
 
   const statutList = [
     {label : "To do", value: "To do", color: "red"},
@@ -66,8 +65,6 @@ const Tasks = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  
-
   React.useEffect(() => {
     const fecthUsers = async () => {
       const fetchData = await getUsers();
@@ -78,69 +75,96 @@ const Tasks = () => {
       const fetchData = await getProjectById(project.projectid);
       console.log("fetch5", fetchData)
       dispatch(update(fetchData));
-  }
+    }
     const fecthTasks = async () => {
-        const fetchData = await getTasks(project.projectid);
-        dispatch(updateTasks(fetchData));
+      const fetchData = await getTasks(project.projectid);
+      dispatch(updateTasks(fetchData));
     }
     if (refresh) {
-        fecthTasks();
-        fecthUsers();
-        fecthProject();
-        setrefresh(false);
+      fecthTasks();
+      fecthUsers();
+      fecthProject();
+      setrefresh(false);
     }
   }, [refresh])
 
   return(
+  
     <Box align="center">
       <Button onClick={show} hoverIndicator color="dark-2" active={false} plain={false} primary={false} reverse={false} secondary={false}>Create task</Button>
-            {showForm && (
-                <Form 
-                className="" 
-                onSubmit={(e) => onSubmit(e)}
-                onReset={() => setFormData({})}>
-                  <FormField name="name" htmlFor="text-input-id">
-                    <TextInput
-                    placeholder="Content"
-                    value={content}
-                    name="content"
-                    className=""
-                    onChange={(e) => onChange(e)}
-                    required
-                    />
-                    
-                    <Select
-                    placeholder="statut"
-                    options={statutList}
-                    labelKey="label"
-                    valueKey="value"
-                    value={value}
-                    onChange={({ value: nextValue }) => setValue(nextValue)}
-                    />
-                    <Select
-                    placeholder="User"
-                    options={options}
-                    labelKey="label"
-                    valueKey="value"
-                    value={valueUser}
-                    onChange={({ value: nextValue }) => setValueUser(nextValue)}
-                    />
-                    <Select
-                    placeholder="Pole"
-                    options={optionsTags}
-                    value={valueTag}
-                    onChange={({ value: nextValue }) => setValueTag(nextValue)}
-                    />
-                  </FormField>
-                  <Button type="submit" primary label="Submit" />
-                  <Button type="reset" label="Reset" />
-                </Form>
-            )}
-      
+      {showForm && (
+        <Form 
+        className="" 
+        onSubmit={(e) => onSubmit(e)}
+        onReset={() => setFormData({})}>
+          <FormField name="name" htmlFor="text-input-id">
+            <TextInput
+              placeholder="Content"
+              value={content}
+              name="content"
+              className=""
+              onChange={(e) => onChange(e)}
+              required
+            />
+            <Select
+              placeholder="statut"
+              options={statutList}
+              labelKey="label"
+              valueKey="value"
+              value={value}
+              onChange={({ value: nextValue }) => setValue(nextValue)}
+            />
+            <Select
+              placeholder="User"
+              options={options}
+              labelKey="label"
+              valueKey="value"
+              value={valueUser}
+              onChange={({ value: nextValue }) => setValueUser(nextValue)}
+            />
+            <Select
+              placeholder="Pole"
+              options={optionsTags}
+              value={valueTag}
+              onChange={({ option: nextValue }) => setValueTag(nextValue)}
+            />
+          </FormField>
+          <Button type="submit" primary label="Submit" />
+          <Button type="reset" label="Reset" />
+        </Form>
+      )}
+      <Select
+        placeholder="statut"
+        options={statutList}
+        labelKey="label"
+        valueKey="value"
+        value={filterByStatus}
+        onChange={({ value: nextValue }) => setFilterStatus(nextValue)}
+      /> 
+      <Select
+        placeholder="Name"
+        options={options}
+        labelKey="label"
+        valueKey="value"
+        value={filterByName}
+        onChange={({ value: nextValue }) => setFilterName(nextValue)}
+      />
+      {optionsTags?.length > 0 && (
+        <Select
+          placeholder="Tag"
+          options={optionsTags}
+          value={filterByTag}
+          onChange={({ option: nextValue }) => setFilterTag(nextValue)}
+        />
+      )}  
       <Button icon={<Refresh />} onClick={()=> setrefresh(true)}/>
       <Box align="stretch" justify="center" direction="row-responsive" wrap="true" width="large" background={{"dark":false}}>
         {tasks ? 
-          tasks.map(task => (
+          tasks
+            .filter(t => t.statut.includes(filterByStatus.value))
+            .filter(t => t.userId.includes(filterByName.value))
+            .filter(t => t.tag.includes(filterByTag.option))
+            .map(task => (
             <CardConcave align="center"
             justify="center"
             round="medium"
@@ -150,6 +174,7 @@ const Tasks = () => {
               <Text>Task : {task.content}</Text>
               <Text>Attribued at : {task.userId}</Text>
               <Text>Status : {task.statut}</Text>
+              <Text>Pole : {task.tag}</Text>
               <Button onClick={()=> history.push(`/tasks/${task.id}`)} hoverIndicator color="dark-2" active={false} plain={false} primary={false} reverse={false} secondary={false}>Edit</Button>         
             </CardConcave>
           ))

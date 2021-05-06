@@ -7,7 +7,6 @@ const projectSchema = new mongoose.Schema({
     tags: [{
         type: String
     }]
-    
 })
 
 projectSchema.set('toJSON', {

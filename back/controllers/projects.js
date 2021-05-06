@@ -16,7 +16,6 @@ projectsRouter.get('/', async (req, res) => {
 projectsRouter.get('/:id', async (req, res) => {
     const auth = req.currentUser;
     if (auth) {
-
         const project = await Project.findById(req.params.id).populate('poles', 'tasks');
         if(!project) {
             return res.status(400).send('Project not found');
@@ -33,18 +32,16 @@ projectsRouter.get('/edit/:id', async (req, res) => {
     if (auth) {
         try {
             const project = await Project.findById(req.params.id).populate('poles', 'tasks');
-        if(!project) {
-            return res.status(400).send('Project not found');
-        }
-        req.io.emit('UPDATE', project);
-        console.log("wehs", project)
-        return res.json(project.toJSON());
+            if(!project) {
+                return res.status(400).send('Project not found');
+            }
+            req.io.emit('UPDATE', project);
+            console.log("wehs", project)
+            return res.json(project.toJSON());
         }catch (error) {
             return res.status(403).send('Not authorized'); 
-        }
-        
+        } 
     }
-    
 })
 
 projectsRouter.patch('/edit/:id', async (req, res) => {
@@ -79,7 +76,6 @@ projectsRouter.post('/', async (req, res)=> {
         return res.status(201).json(savedProject);
     }
     return res.status(403).send('Not authorized')
-    
 });
 
 

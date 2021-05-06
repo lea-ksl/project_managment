@@ -36,7 +36,6 @@ export const addProject = async (title, desc, chiefId, tags) => {
 
 export const getProjects = async () => {
     const header = await createToken();
-
     try {
         const res = await axios.get(url, header)
         return res.data;
@@ -46,7 +45,6 @@ export const getProjects = async () => {
 }
 
 export const getProjectById = async (projectId) => {
-    
     const header = await createToken();
     try {
         const res = await axios.get(`${url}/${projectId}`,header)
@@ -58,7 +56,6 @@ export const getProjectById = async (projectId) => {
 }
 
 export const getProjectByIdForEdit = async (projectId) => {
-    
     const header = await createToken();
     try {
         const res = await axios.get(`${url}/edit/${projectId}`,header)

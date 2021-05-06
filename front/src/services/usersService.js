@@ -42,7 +42,6 @@ export const getUsers = async () => {
 }
 
 export const getUserById = async (user) => {
-    
     const header = await createToken();
     try {
         const res = await axios.get(`${url}/${user}`,header)

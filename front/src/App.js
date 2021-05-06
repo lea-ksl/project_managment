@@ -39,19 +39,16 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   
-    fire.auth().onAuthStateChanged((user) => {
-      return user ? setIsLoggedIn(true) : setIsLoggedIn(false);
+  fire.auth().onAuthStateChanged((user) => {
+    return user ? setIsLoggedIn(true) : setIsLoggedIn(false);
   });
   
   console.log('logged in?', isLoggedIn);
   return (
     <Grommet theme={theme} full>
-    
       <Router>
-        
-        {!isLoggedIn
-          ? (   
-            <Switch>
+        {!isLoggedIn ? (   
+          <Switch>
             <Route path="/" exact>
               <Login />
             </Route>
@@ -59,21 +56,20 @@ function App() {
               <Signup />
             </Route>
           </Switch>
-          ) 
-          : (
-            <Switch>
-              <Route path="/" exact>
-                <Projects />
-              </Route>
-          
-          <Route path="/projects/edit/:projectid"><EditProject />
-          </Route>
-          <Route path="/projects/:projectid" children={<Project />}>
-          </Route>
+        ) : (
+          <Switch>
+            <Route path="/" exact>
+              <Projects />
+            </Route>
+            <Route path="/projects/edit/:projectid">
+              <EditProject />
+            </Route>
+            <Route path="/projects/:projectid">
+              <Project />
+            </Route>
           </Switch>
           )}
       </Router>
- 
     </Grommet>
   );
 }

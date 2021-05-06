@@ -6,19 +6,15 @@ polesRouter.get('/', async (req, res) => {
     const auth = req.currentUser;
     if(auth) {
         try {
-            
             const poles = await Pole.find({}).populate('project');
-            
             if (!poles) return res.status(404).json({ "msg": 'Pole not found' })
-            
             console.log("poles", poles)
-            
-        req.io.emit('UPDATE', poles);
-        return res.json(poles.map((pole => pole.toJSON())));
-    }catch (error) {
-    return res.status(403).send('Not authorized');
+            req.io.emit('UPDATE', poles);
+            return res.json(poles.map((pole => pole.toJSON())));
+        }catch (error) {
+            return res.status(403).send('Not authorized');
+        }
     }
-}
 });
 
 polesRouter.get('/:projectid', async (req, res) => {
@@ -26,21 +22,20 @@ polesRouter.get('/:projectid', async (req, res) => {
     if (auth) {
         try {
             const project = await Project.findById(req.params.projectid);
-        const poles = await Pole.find({projectId : project}).populate('task');
-        if(!poles) {
-            return res.status(400).send('Poles not found');
-        }
-        req.io.emit('UPDATE', poles);
-        console.log("wehs2", poles)
-        return res.json(poles.map((pole => pole.toJSON())));
-    }catch (error) {
-        return res.status(403).send('Not authorized');
+            const poles = await Pole.find({projectId : project}).populate('task');
+            if(!poles) {
+                return res.status(400).send('Poles not found');
+            }
+            req.io.emit('UPDATE', poles);
+            console.log("wehs2", poles)
+            return res.json(poles.map((pole => pole.toJSON())));
+        }catch (error) {
+            return res.status(403).send('Not authorized');
         }
     }
 })
 
 polesRouter.post('/', async (req, res) => {
-    //const {projectId} = req.params
     const auth = req.currentUser;
     if (auth) {
         const pole = new Pole(req.body)

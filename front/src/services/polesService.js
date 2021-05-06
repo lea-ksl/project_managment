@@ -37,7 +37,6 @@ export const addPole = async (title, desc, projectId, userId) => {
 export const getPoles = async (projectId) => {
     const header = await createToken();
     try {
-        
         const res = await axios.get(`${url}/${projectId}`,header)
         console.log('test', res)
         return res.data;

@@ -5,7 +5,6 @@ import fire from '../fire';
 const url = 'http://localhost:3001/tasks'
 
 const createToken = async () => {
-
     const user = fire.auth().currentUser;
     const token = user && (await user.getIdToken());
 
@@ -36,7 +35,6 @@ export const addTask = async (content, statut, projectId, userId, tag) => {
 
 export const getTasks = async (projectId) => {
     const header = await createToken();
-
     try {
         const res = await axios.get(`${url}/${projectId}`, header)
         console.log('test4', res)

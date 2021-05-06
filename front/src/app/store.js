@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-//import postsReducer from "../features/posts/postsSlice";
 import projectsReducer from "../features/projects/projectsSlice";
 import projectReducer from "../features/projects/projectSlice";
 import polesReducer from "../features/poles/polesSlice";
@@ -9,7 +8,6 @@ import  userSlice  from '../features/users/userSlice';
 
 export default configureStore({
   reducer: {
-    //posts: postsReducer,
     projects: projectsReducer,
     project: projectReducer,
     poles:polesReducer,

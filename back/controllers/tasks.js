@@ -48,7 +48,6 @@ tasksRouter.post('/', async (req, res) => {
             return res.status(403).send('Not authorized');
         }
     }
-    
 })
 
 module.exports = tasksRouter;
