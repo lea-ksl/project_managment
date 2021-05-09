@@ -5,9 +5,7 @@ import { BrowserRouter as Router, Route, Switch, useParams } from 'react-router-
 import Login from "./features/session/Login";
 import Projects from "./features/projects/Projects";
 import Project from "./features/projects/Project";
-import EditProject from "./features/projects/EditProject"
-import Poles from "./features/poles/Poles"
-import Tasks from "./features/tasks/Tasks"
+import EditProject from "./features/projects/EditProject";
 import Signup from "./features/session/Signup";
 import store from "./app/store";
 

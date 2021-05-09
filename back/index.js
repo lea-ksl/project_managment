@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const decodeIDToken = require('./authenticateToken');
 const projectsRouter = require('./controllers/projects');
-const polesRouter = require('./controllers/poles');
 const tasksRouter = require('./controllers/tasks');
 
 const app = express();
@@ -38,7 +37,6 @@ mongoose.connect(
 
 
 app.use('/projects', projectsRouter);
-app.use('/poles', polesRouter);
 app.use('/tasks', tasksRouter);
 app.use('/users', usersRouter)
 

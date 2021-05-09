@@ -14,7 +14,7 @@ projectsRouter.get('/', async (req, res) => {
 projectsRouter.get('/:id', async (req, res) => {
     const auth = req.currentUser;
     if (auth) {
-        const project = await Project.findById(req.params.id).populate('poles', 'tasks');
+        const project = await Project.findById(req.params.id).populate('tasks');
         if(!project) {
             return res.status(400).send('Project not found');
         }
@@ -28,7 +28,7 @@ projectsRouter.get('/edit/:id', async (req, res) => {
     const auth = req.currentUser;
     if (auth) {
         try {
-            const project = await Project.findById(req.params.id).populate('poles', 'tasks');
+            const project = await Project.findById(req.params.id).populate('tasks');
             if(!project) {
                 return res.status(400).send('Project not found');
             }
