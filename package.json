@@ -5,7 +5,7 @@
     "main": "index.html",
     "scripts": {
       "dev": "concurrently  \"npm start --prefix front\" \"npm run dev --prefix back\"",
-      "build": "\"npm build\""
+      "build": "\"react-scripts build\""
     },
     "author": "",
     "license": "ISC",
