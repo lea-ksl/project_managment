@@ -21,7 +21,6 @@ const createToken = async () => {
 
 export const addPole = async (title, desc, projectId, userId) => {
     const header = await createToken();
-    console.log('addpole', title, desc, projectId, userId)
     const payload ={
         title, desc, projectId, userId
     }
@@ -37,8 +36,7 @@ export const addPole = async (title, desc, projectId, userId) => {
 export const getPoles = async (projectId) => {
     const header = await createToken();
     try {
-        const res = await axios.get(`${url}/${projectId}`,header)
-        console.log('test', res)
+        const res = await axios.get(`${url}/${projectId}`,header);
         return res.data;
     } catch (e) {
         console.error(e);

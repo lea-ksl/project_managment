@@ -1,7 +1,5 @@
 const projectsRouter = require('express').Router();
-const Pole = require('../models/pole');
 const Project = require('../models/project');
-const User = require('../models/user');
 
 projectsRouter.get('/', async (req, res) => {
     const auth = req.currentUser;
@@ -21,7 +19,6 @@ projectsRouter.get('/:id', async (req, res) => {
             return res.status(400).send('Project not found');
         }
         req.io.emit('UPDATE', project);
-        console.log("wehs", project)
         return res.json(project.toJSON());
     }
     return res.status(403).send('Not authorized'); 
@@ -36,7 +33,6 @@ projectsRouter.get('/edit/:id', async (req, res) => {
                 return res.status(400).send('Project not found');
             }
             req.io.emit('UPDATE', project);
-            console.log("wehs", project)
             return res.json(project.toJSON());
         }catch (error) {
             return res.status(403).send('Not authorized'); 
@@ -50,9 +46,7 @@ projectsRouter.patch('/edit/:id', async (req, res) => {
         try {
             const id = req.params.id;
             const projectData = req.body;
-            console.log('projectData', projectData)
             const project = await Project.findByIdAndUpdate(id, projectData);
-            console.log('project', project )
             if (project) {
                 res.send(project);
             } else {
@@ -60,10 +54,8 @@ projectsRouter.patch('/edit/:id', async (req, res) => {
             }
         }catch (error) {
             return res.status(403).send('Not authorized'); 
-        }
-        
+        } 
     }
-    
 })
 
 projectsRouter.post('/', async (req, res)=> {

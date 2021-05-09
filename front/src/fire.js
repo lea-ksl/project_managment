@@ -14,7 +14,7 @@ import firebase from 'firebase';
     firebase.initializeApp(firebaseConfig);
   } catch (err) {
     if (!/already exists/.test(err.message)) {
-      Sconsole.error('Firebase initialization error', err.stack);
+      console.error('Firebase initialization error', err.stack);
     }
   }
   firebase.auth()

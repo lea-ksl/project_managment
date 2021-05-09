@@ -5,7 +5,6 @@ import { Box, Button, Text, TextInput, Form, FormField, Header, Heading } from "
 import { Refresh } from "grommet-icons";
 import { TagsInput } from "react-tag-input-component";
 import Card from "../../components/Card";
-import CardConcave from "../../components/CardConcave";
 import MySidebar from "../sidebar/MySidebar"
 import { addProject, getProjects, getProjectByIdForEdit } from "../../services/projectsService";
 
@@ -49,8 +48,7 @@ const Projects = () => {
     }
     const fecthProject = async () => {
       const fetchData = await getProjectByIdForEdit(project.id);
-      console.log("fetch", fetchData)
-      dispatch(updateOne(fetchData))
+      dispatch(updateOne(fetchData));
     }
     if (refresh) {
       fecthProjects();

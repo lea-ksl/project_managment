@@ -15,6 +15,7 @@ import store from "./app/store";
 import fire from "./fire";
 
 import connect from './socket-api';
+import EditTask from "./features/tasks/EditTask";
 
 connect("http://localhost:3001", store);
 
@@ -66,6 +67,9 @@ function App() {
             </Route>
             <Route path="/projects/:projectid">
               <Project />
+            </Route>
+            <Route path="/tasks/edit/:taskid">
+              <EditTask />
             </Route>
           </Switch>
           )}

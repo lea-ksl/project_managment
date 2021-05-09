@@ -36,7 +36,6 @@ const EditProject = () => {
   React.useEffect(() => {
     const fecthProject = async () => {
       const fetchData = await getProjectByIdForEdit(projectId.projectid);
-      console.log("fetchcoucou", fetchData);
       setProjectToUpdate(fetchData);
     };
     fecthProject();

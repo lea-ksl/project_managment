@@ -15,12 +15,11 @@ usersRouter.get('/:user', async (req, res) => {
   if (auth) {
     try {
         const pole = await Pole.findById(req.params.user);
-      const user = await Pole.findById(pole);
+        const user = await Pole.findById(pole);
       if(!user) {
           return res.status(400).send('Project not found');
       }
       req.io.emit('UPDATE', user);
-      console.log("wehs2", user)
       return res.json(user.toJSON());
     }catch (error) {
       return res.status(403).send('Not authorized');

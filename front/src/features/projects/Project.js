@@ -17,7 +17,6 @@ const Project = () => {
   React.useEffect(() => {
     const fecthProject = async () => {
       const fetchData = await getProjectById(projectId.projectid);
-      console.log("fetch", fetchData)
       dispatch(update(fetchData));
     }
 

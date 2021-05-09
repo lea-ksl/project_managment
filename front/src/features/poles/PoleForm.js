@@ -29,9 +29,8 @@ const PoleForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    userId = options[0].value
-    console.log(title, desc, projectId, userId)
-    addPole(title, desc, projectId, userId)
+    userId = options[0].value;
+    addPole(title, desc, projectId, userId);
   };
 
   const onChange = (e) => {
@@ -41,7 +40,6 @@ const PoleForm = () => {
   React.useEffect(() => {
     const fecthUsers = async () => {
       const fetchData = await getUsers();
-      console.log('users', fetchData)
       dispatch(updateUsers(fetchData));
     }
     if (refresh) {
@@ -58,26 +56,26 @@ return(
       onReset={() => setFormData({})}>
         <FormField name="name" htmlFor="text-input-id">
           <TextInput
-          placeholder="Title"
-          value={title}
-          name="title"
-          className=""
-          onChange={(e) => onChange(e)}
-          required
+            placeholder="Title"
+            value={title}
+            name="title"
+            className=""
+            onChange={(e) => onChange(e)}
+            required
           />
           <TextInput
-          placeholder="Description"
-          value={desc}
-          name="desc"
-          className=""
-          onChange={(e) => onChange(e)}
-          required
+            placeholder="Description"
+            value={desc}
+            name="desc"
+            className=""
+            onChange={(e) => onChange(e)}
+            required
           />
           <Select
-          placeholder="User"
-          options={options}
-          labelKey="label"
-          valueKey="value"
+            placeholder="User"
+            options={options}
+            labelKey="label"
+            valueKey="value"
           />
         </FormField>
         <Button type="submit" primary label="Submit" />

@@ -39,8 +39,6 @@ const Tasks = () => {
   ));
 
   const optionsTags = projectTags.tags;
-  console.log(optionsTags)
-  console.log(projectTags)
   const [filterByStatus, setFilterStatus] = React.useState({value: ""})
   const [filterByName, setFilterName] = React.useState({value: ""})
   const [filterByTag, setFilterTag] = React.useState({option: ""})
@@ -68,12 +66,10 @@ const Tasks = () => {
   React.useEffect(() => {
     const fecthUsers = async () => {
       const fetchData = await getUsers();
-      console.log('users', fetchData)
       dispatch(updateUsers(fetchData));
     }
     const fecthProject = async () => {
       const fetchData = await getProjectById(project.projectid);
-      console.log("fetch5", fetchData)
       dispatch(update(fetchData));
     }
     const fecthTasks = async () => {
@@ -175,7 +171,7 @@ const Tasks = () => {
               <Text>Attribued at : {task.userId}</Text>
               <Text>Status : {task.statut}</Text>
               <Text>Pole : {task.tag}</Text>
-              <Button onClick={()=> history.push(`/tasks/${task.id}`)} hoverIndicator color="dark-2" active={false} plain={false} primary={false} reverse={false} secondary={false}>Edit</Button>         
+              <Button onClick={()=> history.push(`/tasks/edit/${task.id}`)} hoverIndicator color="dark-2" active={false} plain={false} primary={false} reverse={false} secondary={false}>Edit</Button>         
             </CardConcave>
           ))
         : 

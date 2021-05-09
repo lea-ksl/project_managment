@@ -68,7 +68,6 @@ export const getProjectByIdForEdit = async (projectId) => {
 
 export const editProject = async (title, desc, tags, projectId) => {
     const header = await createToken();
-    console.log('editproject', title, desc, tags)
     const payload ={
         title, desc, tags
     }
