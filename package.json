@@ -2,9 +2,10 @@
     "name": "projectmanagment",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "index.html",
     "scripts": {
-      "dev": "concurrently  \"npm start --prefix front\" \"npm run dev --prefix back\""
+      "dev": "concurrently  \"npm start --prefix front\" \"npm run dev --prefix back\"",
+      "build": "\"npm build\""
     },
     "author": "",
     "license": "ISC",
