@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import { Box, TextInput, Text, Button } from 'grommet';
+import { Box, TextInput, Text, Button, Header, Heading } from 'grommet';
 import { useHistory } from "react-router-dom";
 import fire from '../../fire';
 import { addUser } from '../../services/usersService';
@@ -29,8 +29,10 @@ const Signup = () => {
     
     return (
       
-        <Box fill align="center" justify="center" background="back" gap="small">
-            Sign up
+        <Box fill align="center" justify="center" gap="small">
+            <Header align="center" direction="row" flex={false} justify="between" gap="medium">
+                <Heading color="#4F5182">Sign up</Heading>
+            </Header>
             <Box width="small" gap="small">
                 <TextInput type="text" placeholder="name" onChange={(e)=>setName(e.target.value)} />
                 <TextInput type="email" placeholder="email" onChange={(e)=>setEmail(e.target.value)} />
@@ -39,7 +41,7 @@ const Signup = () => {
             {error && 
                 <Text margin="small" color="red">{error}</Text>
             }
-            <Button label="S'inscrire" onClick={(e) => handleSignUp(e)} />
+            <Button label="Sign up" onClick={(e) => handleSignUp(e)} />
 
         </Box>
     )

@@ -7,10 +7,10 @@ const MySidebar = () => {
     let history = useHistory();
     return (
         <Menu
-            label="Menu"
+            label="Settings"
             items={[
                 { label: 'Projects', onClick: () => {history.push(`/`)} },
-                { label: 'Sign Out', onClick: () => {fire.auth().signOut()} }
+                { label: 'Sign Out', onClick: () => {fire.auth().signOut(); history.push('/')} }
             ]}
         />
     )

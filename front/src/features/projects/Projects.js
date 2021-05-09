@@ -63,8 +63,8 @@ const Projects = () => {
       <Box align="center">
         <Header align="center" direction="row" flex={false} justify="between" gap="medium">
           <Heading>Projects</Heading>
+          <Button onClick={show} hoverIndicator style={{background: "#814F82", color:"#ffffff", border:"none", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)", borderRadius: "10px", margin: "0.5em 0"}} active={false} plain={false} primary={false} reverse={false} secondary={false}>{!showForm ? 'New project' : 'Cancel'}</Button>
         </Header>
-        <Button onClick={show} hoverIndicator color="dark-2" active={false} plain={false} primary={false} reverse={false} secondary={false}>Create project</Button>
         {showForm && (
           <Form 
           className="" 
@@ -99,7 +99,7 @@ const Projects = () => {
           </Form>          
         )}
         <Button icon={<Refresh />} onClick={()=> setrefresh(true)}/>
-        <Box align="stretch" justify="center" direction="row-responsive" wrap="true" width="xlarge" background={{"dark":false}}>
+        <Box align="center" justify="center" direction="row-responsive" wrap="true" width="large" pad="large" alignContent="between" background={{"dark":false}}>
           {projects && projects.length > 0 ? 
             projects.map(project => (
               <Card fil="horizontal"
@@ -109,9 +109,10 @@ const Projects = () => {
               align="center"
               margin="medium"
               width="small"
-              height="small">
+              height="small"
+              style={{margin: "1em auto"}}>
                 <Heading level="3" textAlign="center">{project.title}</Heading>
-                <Button  style={{background: "#4F5182", color:"#ffffff", border:"none", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)", borderRadius: "10px"}} onClick={()=> history.push(`/projects/${project.id}`)} hoverIndicator active={false} plain={false} primary={false} reverse={false} secondary={false}>Enter</Button>
+                <Button style={{background: "#4F5182", color:"#ffffff", border:"none", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)", borderRadius: "10px", margin: "0.5em 0"}} onClick={()=> history.push(`/projects/${project.id}`)} hoverIndicator active={false} plain={false} primary={false} reverse={false} secondary={false}>Enter</Button>
                 <Button onClick={()=> history.push(`/projects/edit/${project.id}`)} hoverIndicator color="dark-2" active={false} plain={false} primary={false} reverse={false} secondary={false}>Edit</Button>
               </Card>
             ))

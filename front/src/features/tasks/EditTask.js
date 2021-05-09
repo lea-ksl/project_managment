@@ -2,7 +2,7 @@ import React from "react";
 import fire from "../../fire.js";
 import { useHistory, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { Box, Button, TextInput, Form, FormField, Select } from "grommet";
+import { Box, Button, TextInput, Form, FormField, Select, Header, Heading } from "grommet";
 import { getUsers } from "../../services/usersService";
 import { updateUsers, selectUsers} from '../users/usersSlice';
 import {update, selectProject} from '../projects/projectSlice';
@@ -40,9 +40,6 @@ const EditTask = () => {
     {label : "Completed", value: "Completed", color: "grey"},
   ]
 
-  const [projectToUpdate, setProjectToUpdate] = React.useState([null]);
-
-
    const handleSubmit = event => {
      event.preventDefault();
      const content = event.target.content.value
@@ -70,6 +67,9 @@ const EditTask = () => {
 
   return (
     <Box align="center">
+      <Header align="center" direction="row" flex={false} justify="between" gap="medium">
+        <Heading color="#4F5182">Edit Task</Heading>
+      </Header>
       <Form className="" onSubmit={handleSubmit}>
         <FormField name="name" htmlFor="text-input-id">
         <TextInput

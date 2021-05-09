@@ -33,7 +33,7 @@ const Project = () => {
           <MySidebar />
           <Box align="center">
             <Header align="center" direction="row" flex={false} justify="between" gap="medium">
-              <Heading>{project.title}</Heading>
+              <Heading color="#4F5182">{project.title}</Heading>
               <Text>{project.desc}</Text>
             </Header>
             <Tasks projectId={projectId} />

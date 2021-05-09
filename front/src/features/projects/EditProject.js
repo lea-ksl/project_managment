@@ -1,7 +1,7 @@
 import React from "react";
 import fire from "../../fire.js";
 import { useHistory, useParams } from "react-router-dom";
-import { Box, Button, TextInput, Form, FormField } from "grommet";
+import { Box, Button, TextInput, Form, FormField, Heading, Header } from "grommet";
 import {
   getProjectByIdForEdit,
   editProject
@@ -43,6 +43,9 @@ const EditProject = () => {
 
   return (
     <Box align="center">
+      <Header align="center" direction="row" flex={false} justify="between" gap="medium">
+        <Heading color="#4F5182">Edit Project</Heading>
+      </Header>
       <Form className="" onSubmit={handleSubmit}>
         <FormField name="name" htmlFor="text-input-id">
           <TextInput

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { Box, Text, TextInput, Button } from "grommet";
+import { Box, Text, TextInput, Button, Heading, Header } from "grommet";
 import { useHistory } from "react-router-dom";
 import fire from "../../fire"
 
@@ -22,8 +22,10 @@ const Login = () => {
         }
 
     return(
-        <Box fill align="center" justify="center" background="back" gap="medium">
-            Login
+        <Box fill align="center" justify="center" gap="medium">
+            <Header align="center" direction="row" flex={false} justify="between" gap="medium">
+                <Heading color="#4F5182">Login</Heading>
+            </Header>
             <Box width="small" gap="small">
                 <TextInput type="email" placeholder="email" onChange={(e) => setEmail(e.target.value)} />
                 <TextInput type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
@@ -31,8 +33,10 @@ const Login = () => {
             {alert && (
                 <Text color="red">{alert}</Text>
             )}
-            <Button margin="small" label="ok" onClick={(e)=> handleSubmit(e)} />
-            <Box>Pas encore de compte ? <Link color='#ffffff' to="/signup">Signup</Link></Box>
+            <Button label="Login" onClick={(e)=> handleSubmit(e)} />
+            <Box align="center" justify="between" direction="row-responsive" wrap="true" width="medium" pad="large" alignContent="center">
+                <Text align="center">No account yet ? </Text><Link color='#ffffff' to="/signup"><Button label="Signup" /></Link>
+            </Box>
         </Box>
     )
 }
