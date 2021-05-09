@@ -11,7 +11,6 @@ const Project = () => {
   const project = useSelector(selectProject);
   const dispatch = useDispatch();
   let projectId = useParams();
-  const [showForm, setShowForm] = React.useState(false);
   const [refresh, setrefresh] = React.useState(true);
 
   React.useEffect(() => {

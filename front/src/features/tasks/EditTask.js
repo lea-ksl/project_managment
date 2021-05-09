@@ -1,11 +1,10 @@
 import React from "react";
-import fire from "../../fire.js";
 import { useHistory, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { Box, Button, TextInput, Form, FormField, Select, Header, Heading } from "grommet";
 import { getUsers } from "../../services/usersService";
 import { updateUsers, selectUsers} from '../users/usersSlice';
-import {update, selectProject} from '../projects/projectSlice';
+import {selectProject} from '../projects/projectSlice';
 import {
   getTaskByIdForEdit,
   editTask

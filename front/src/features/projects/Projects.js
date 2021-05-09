@@ -7,10 +7,9 @@ import { TagsInput } from "react-tag-input-component";
 import Card from "../../components/Card";
 import MySidebar from "../sidebar/MySidebar"
 import { addProject, getProjects, getProjectByIdForEdit } from "../../services/projectsService";
-
 import { useSelector, useDispatch } from 'react-redux';
 import { update, selectProjects } from './projectsSlice';
-import { update as updateOne, selectProject} from './projectSlice';
+import { update as updateOne} from './projectSlice';
 
 const Projects = () => {
   let history = useHistory();
@@ -34,7 +33,7 @@ const Projects = () => {
     
   const onSubmit = (e) => {
     e.preventDefault();
-    addProject(title, desc, chiefId, tags).then(()=>setrefresh(true) )
+    addProject(title, desc, chiefId, tags).then(()=>setrefresh(true))
   };
 
   const onChange = (e) => {

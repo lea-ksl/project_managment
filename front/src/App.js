@@ -1,6 +1,6 @@
 import React from "react";
-import { Grommet, Box, Button,  } from "grommet";
-import { BrowserRouter as Router, Route, Switch, useParams } from 'react-router-dom';
+import { Grommet } from "grommet";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Login from "./features/session/Login";
 import Projects from "./features/projects/Projects";
@@ -20,11 +20,7 @@ connect("http://localhost:3001", store);
 const theme = {
   global: {
     colors: {
-      brand: '#cc0000',
-      back: "#292929",
-      card: "#bfdbf7",
-      accent: "#994650",
-      ok: '#00C781',
+      brand: '#4F5A82',
     },
     font: {
       family: "Roboto",

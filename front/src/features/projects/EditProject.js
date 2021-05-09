@@ -1,5 +1,4 @@
 import React from "react";
-import fire from "../../fire.js";
 import { useHistory, useParams } from "react-router-dom";
 import { Box, Button, TextInput, Form, FormField, Heading, Header } from "grommet";
 import {
@@ -11,8 +10,6 @@ import { TagsInput } from "react-tag-input-component";
 const EditProject = () => {
   let history = useHistory();
   let projectId = useParams();
-  const user = fire.auth().currentUser;
-  const chiefId = user.email;
 
   const [projectToUpdate, setProjectToUpdate] = React.useState([null]);
 

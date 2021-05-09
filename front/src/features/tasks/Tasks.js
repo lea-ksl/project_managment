@@ -56,7 +56,7 @@ const Tasks = () => {
     userId = valueUser.value;
     tag = valueTag;
     statut = value.value;
-    addTask(content, statut, projectId, userId, tag)
+    addTask(content, statut, projectId, userId, tag).then(()=>setrefresh(true))
   };
 
   const onChange = (e) => {
@@ -135,7 +135,7 @@ const Tasks = () => {
       <Box align="stretch" justify="between" direction="row-responsive" wrap="true" width="xlarge" margin="small" pad="small" style={{backgroundColor:"lightgrey"}}>
         <Select
           style={{backgroundColor:"white"}}
-          placeholder="statut"
+          placeholder="Statut"
           options={statutList}
           labelKey="label"
           valueKey="value"
@@ -154,7 +154,7 @@ const Tasks = () => {
         {optionsTags?.length > 0 && (
           <Select
             style={{backgroundColor:"white"}}
-            placeholder="Tag"
+            placeholder="Pole"
             options={optionsTags}
             value={filterByTag}
             onChange={({ option: nextValue }) => setFilterTag(nextValue)}
@@ -178,7 +178,8 @@ const Tasks = () => {
             gap="medium"
             pad="medium"
             margin="small"
-            width="xlarge">
+            width="xlarge"
+            alignContent="center">
               <Text><strong>Task : </strong>{task.content}</Text>
               <Text><strong>Pole : </strong>{task.tag}</Text>
               <Box direction="row-responsive" 
@@ -189,7 +190,7 @@ const Tasks = () => {
                 <Avatar background="#4F5182" margin="small">{task.userId.substr(0,2).toUpperCase()}</Avatar>
               </Box>
               <Text><strong>Statut : </strong>{task.statut}</Text>
-              <Button icon={<Edit />} color="#4F5182" style={{margin: "0.5em 0"}} onClick={()=> history.push(`/tasks/edit/${task.id}`)} />         
+              <Button icon={<Edit />} color='brand' style={{margin: "0.5em 0"}} onClick={()=> history.push(`/tasks/edit/${task.id}`)} />         
             </Card>
           ))
         : 
